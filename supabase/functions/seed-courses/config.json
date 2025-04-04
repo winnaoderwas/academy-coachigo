@@ -1,0 +1,7 @@
+
+{
+  "name": "seed-courses",
+  "version": "1.0",
+  "description": "Add sample courses to the database",
+  "schedules": []
+}
