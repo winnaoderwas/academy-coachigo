@@ -9,7 +9,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { BookOpen, Clock, Award, Calendar } from 'lucide-react';
 import { Course } from '@/types';
 
-const Courses = () => {
+const Bootcamps = () => {
   const { language } = useLanguage();
   const navigate = useNavigate();
   const { toast } = useToast();
@@ -62,8 +62,9 @@ const Courses = () => {
         const { data: coursesData, error: coursesError } = await supabase
           .from('courses')
           .select('*')
-          .eq('course_type', 'course') 
-          .in('id', Array.from(courseIds));
+          .eq('course_type', 'bootcamp') 
+          .in('id', Array.from(courseIds)
+          );
         
         if (coursesError) throw coursesError;
         
@@ -137,22 +138,22 @@ const Courses = () => {
   return (
     <div>
       <h1 className="text-3xl font-bold mb-8">
-        {language === 'en' ? 'My Courses' : 'Meine Kurse'}
+        {language === 'en' ? 'My Bootcamps' : 'Meine Bootcamps'}
       </h1>
 
       {courses.length === 0 ? (
         <div className="bg-white rounded-lg shadow p-8 text-center">
           <BookOpen className="h-12 w-12 mx-auto text-gray-400 mb-4" />
           <h2 className="text-xl font-semibold mb-2">
-            {language === 'en' ? 'No Courses Yet' : 'Noch keine Kurse'}
+            {language === 'en' ? 'No Bootcamp Yet' : 'Noch kein Bootcamp'}
           </h2>
           <p className="text-gray-500 mb-6">
             {language === 'en' 
-              ? 'You haven\'t enrolled in any courses yet.' 
-              : 'Sie haben sich noch für keine Kurse angemeldet.'}
+              ? 'You haven\'t enrolled in any Bootcamp yet.' 
+              : 'Sie haben sich noch für kein Bootcamp angemeldet.'}
           </p>
-          <Button onClick={() => navigate('/courses')}>
-            {language === 'en' ? 'Browse Courses' : 'Kurse durchsuchen'}
+          <Button onClick={() => navigate('/bootcampview')}>
+            {language === 'en' ? 'Browse bootcamps' : 'Bootcamps durchsuchen'}
           </Button>
         </div>
       ) : (
@@ -196,7 +197,7 @@ const Courses = () => {
                       <Calendar className="h-5 w-5 text-primary mr-2" />
                       <div>
                         <p className="text-xs text-gray-500">
-                          {language === 'en' ? 'Start Date' : 'Startdatum'}
+                          {language === 'en' ? 'Start Date' : 'buchbar ab'}
                         </p>
                         <p className="text-sm font-medium">{formatDate(course.startDate)}</p>
                       </div>
@@ -214,8 +215,8 @@ const Courses = () => {
                   </div>
                   
                   <div className="flex justify-end">
-                    <Button onClick={() => navigate(`/dashboard/courses/${course.id}`)}>
-                      {language === 'en' ? 'View Course Details' : 'Kursdetails anzeigen'}
+                    <Button onClick={() => navigate(`/dashboard/bootcamps/${course.id}`)}>
+                      {language === 'en' ? 'View Bootcamp Details' : 'Bootcamp anzeigen'}
                     </Button>
                   </div>
                 </div>
@@ -228,4 +229,4 @@ const Courses = () => {
   );
 };
 
-export default Courses;
+export default Bootcamps;
